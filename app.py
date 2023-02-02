@@ -1,27 +1,13 @@
-from flask import Flask, render_template, redirect, url_for, flash, get_flashed_messages
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret-key'
 
-@app.route('/')
-def index():
-    return render_template("index.html", 
-                            title = "Conjectured", 
-                            tags = ["Algorithms", "Data Structures", "Calculus", "Linear Algebra"])
+with open('.env', 'r') as data:
+    line = data.readline()
+    SECRET_KEY = line.split('\"')[1]
+    app.config['SECRET_KEY'] = SECRET_KEY
 
-@app.route('/user/<name>')
-def user(name:str):
-    return render_template("user.html", name = name.capitalize())
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 
-
-# Invalid URL
-@app.errorhandler(404)
-def page_not_found(e):
-    flash("Error 404: Invalid URL")
-    return redirect(url_for('index'))
-
-# Internal Server Error
-@app.errorhandler(500)
-def page_not_found(e):
-    flash("Error 500: Internal Server Error")
-    return redirect(url_for('index'))
+from routes import *

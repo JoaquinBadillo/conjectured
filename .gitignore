@@ -1,3 +1,4 @@
 # Remove virtual environment
 flaskenv/
 __pycache__/
+.env
