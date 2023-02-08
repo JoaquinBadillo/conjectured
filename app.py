@@ -9,5 +9,11 @@ with open('.env', 'r') as data:
     app.config['SECRET_KEY'] = SECRET_KEY
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+db = SQLAlchemy(app)
+
+ALLOWED_EXTENSIONS = {'md', 'png', 'jpg', 'jpeg'}
 
 from routes import *
+
+if __name__ == '__main__':
+    app.run(host = "0.0.0.0", debug=True)

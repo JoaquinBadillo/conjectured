@@ -8,10 +8,18 @@ def index():
                             title = "Conjectured", 
                             tags = ["Algorithms", "Data Structures", "Calculus", "Linear Algebra"])
 
-@app.route('/user/<name>')
-def user(name:str):
-    return render_template("user.html", name = name.capitalize())
-
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload():
+    form = forms.UploadPostForm()
+    if form.validate_on_submit():
+        files_filenames = []
+        for file in form.files.data:
+            file_filename = secure_filename(file.filename)
+            data.save(os.path.join(app.config['UPLOAD_FOLDER'], data_filename))
+            files_filenames.append(file_filename)
+        print(files_filenames)
+        return render_template('upload.html', title = "Upload", form=form)
+    return render_template('upload.html', title = "Upload", form=form)
 
 # Invalid URL
 @app.errorhandler(404)
