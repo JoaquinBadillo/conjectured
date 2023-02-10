@@ -6,6 +6,11 @@ from flask_wtf.file import FileField, FileRequired
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea, TextInput
 
+class SudoForm(FlaskForm):
+    user = StringField(u'User', validators = [DataRequired()])
+    password = StringField(u'Password', validators = [DataRequired()])
+    submit = SubmitField(u'Submit');
+
 class TagListField(Field):
     widget = TextInput()
 
@@ -27,3 +32,4 @@ class UploadPostForm(FlaskForm):
     desc = StringField(u'Description', widget=TextArea(), validators = [DataRequired()])
     cover = FileField(u'Cover', validators=[FileRequired()])
     content = MultipleFileField(u'Content', validators=[FileRequired()])
+    submit = SubmitField(u'Submit');

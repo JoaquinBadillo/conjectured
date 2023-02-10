@@ -1,0 +1,189 @@
+a {
+  text-decoration: none;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: #121212;
+  padding-top: 5vh;
+  font-size: calc(30% + 1vw);
+  z-index: 1;
+}
+
+nav path {
+  stroke: white;
+}
+
+nav > ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: bold;
+}
+
+nav a {
+  text-decoration: none;
+  color: #eff3f6;
+}
+
+@media only screen and (max-width: 500px) {
+  nav > ul {
+    justify-content: space-around;
+  }
+}
+
+nav a:hover {
+  color: #309ce7;
+}
+
+section {
+  height: 80vh;
+  display: flex;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 3vw;
+}
+
+#featured {
+  height: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+#featured::-webkit-scrollbar {
+  height: 6px;
+}
+
+@media only screen and (max-width: 500px) {
+  #featured::-webkit-scrollbar {
+    height: 0;
+  }
+}
+
+#featured::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+#featured::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #121212 30%, #174465 50%, #121212 70%);
+}
+
+#featured::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #121212 30%, #309ce7 50%, #121212 70%);
+}
+
+#featured::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(90deg, #121212 30%, #309ce7 50%, #121212 70%);
+}
+
+.card {
+  width: 60vw;
+  height: 450px;
+  flex: 0 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  color: #121212;
+  margin: 2vw;
+  position: relative;
+  z-index: 0;
+  background-size: 60vw auto;
+}
+
+#post0 {
+  background-color: #b4ccf0;
+}
+
+#post1 {
+  background-color: #f0c0b4;
+}
+
+#post2 {
+  background-color: #e3efce;
+}
+
+.card h2 {
+  font-size: calc(100% + 1vw);
+}
+
+.card h3 {
+  font-size: 18px;
+  color: #383838;
+}
+
+.card p {
+  font-size: calc(60% + 1vw);
+}
+
+.card a {
+  color: #121212;
+}
+
+@media only screen and (min-width: 760px) {
+  .card-content {
+    position: absolute;
+    bottom: 0px;
+    padding: 15px;
+    height: 50%;
+  }
+
+  /*#wallpaper0 {
+        background-image: url("../img/exp\ log.png");
+    }*/
+
+  #wallpaper1 {
+    background-image: url("../img/coordinates.png");
+  }
+
+  #wallpaper2 {
+    background-image: url("../img/exp\ log.png");
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .card {
+    background-image: none;
+    width: 70vw;
+    height: 250px;
+  }
+
+  .card-content {
+    padding: 20px;
+    height: -webkit-fill-available;
+  }
+}
+
+hr {
+  border: 5% solid white;
+}
+
+footer {
+  background-color: #121212;
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1rem;
+}
+
+a:hover > svg > #signature {
+  stroke-dasharray: 1072;
+  stroke-dashoffset: 1072;
+  animation: sign 4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes sign {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@-webkit-keyframes sign {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

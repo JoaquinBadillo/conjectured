@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="flash">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <section id="featured">
+        <div class="card" id="wallpaper0" style="background-image: url({{url_for('static', filename='img/exp log.png')}})">
+            <a href="{{ url_for('index') }}">
+                <div class="card-content" id="post0">
+                    <h2>Exponentials and Logarithms</h2>
+                    <div>
+                        <p>
+                        Logarithms often arise when something gets divided iteratively; when studying them 
+                        I found out their properties are better understood when looking at the opposite situation, 
+                        when something gets multiplied repeatedly.
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="card" id="wallpaper1">
+            <a href="{{ url_for('index') }}">
+                <div class="card-content" id="post1">
+                    <h2>Exponentials and Logarithms</h2>
+                    <div>
+                        <p>
+                        Logarithms appear naturally when describing processes that continuously divide a quantity. 
+                        Which is particularly important when describing divide and conquer algorithms. Let's look at them
+                        mathematically.
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="card" id="wallpaper2">
+            <a href="{{ url_for('index') }}">
+                <div class="card-content" id="post2">
+                    <h2>Exponentials and Logarithms</h2>
+                    <div>
+                        <p>
+                        Logarithms appear naturally when describing processes that continuously divide a quantity. 
+                        Which is particularly important when describing divide and conquer algorithms. Let's look at them
+                        mathematically.
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div> 
+    </section>
+{% endblock %}

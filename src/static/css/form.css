@@ -1,0 +1,155 @@
+.formcard {
+  width: 100vw;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  width: 60vw;
+  height: 450px;
+  flex: 0 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  color: #121212;
+  margin: 2vw;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 0;
+  background-size: 60vw auto;
+}
+
+.card-content {
+  background-color: #b4ccf0;
+  width: -webkit-fill-available;
+  height: 225px;
+}
+
+@media only screen and (min-width: 760px) {
+  .card-content {
+    position: absolute;
+    bottom: 0px;
+    height: 50%;
+    padding: 15px;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .card {
+    background-image: none;
+    width: 70vw;
+    height: 250px;
+  }
+
+  .card-content {
+    padding: 20px;
+    height: -webkit-fill-available;
+  }
+}
+
+#counter {
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+}
+
+.row {
+  padding: 1vh 0;
+  width: 100%;
+  height: auto;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+}
+
+.card .title {
+  display: block;
+  width: 100%;
+  font-family: "Ubuntu", sans-serif;
+  font-size: calc(100% + 1vw);
+  background: none;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.card .desc {
+  display: block;
+  min-height: 40%;
+  width: 100%;
+  font-family: "Ubuntu", sans-serif;
+  font-size: calc(60% + 1vw);
+  background: none;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  color: #121212;
+  resize: none;
+  padding: 0;
+}
+
+.tags {
+  background: none;
+  border: 2px solid #343536;
+  border-radius: 5px;
+  width: 100%;
+  color: #eff3f6;
+}
+
+.tags::placeholder {
+  text-align: center;
+}
+
+.file-wrapper {
+  position: relative;
+  padding-top: 1vh;
+}
+
+.file-upload {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
+.file-upload:hover {
+  cursor: pointer;
+}
+
+#file:hover {
+  cursor: pointer;
+}
+
+.styled {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  vertical-align: middle;
+}
+
+#content-uploaded {
+  font-size: min(8px, 1.5vw);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  color: #bcb7b7;
+}
+
+.content-card {
+  width: max(10vw, 10vh);
+  height: max(10vw, 10vh);
+  border-radius: 15px;
+  border: 2px solid #eff3f6;
+  margin: 10px;
+  padding: 0.5vh 0.5vw;
+  overflow: hidden;
+}
