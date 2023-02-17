@@ -12,14 +12,22 @@
     />
     <link
       rel="shortcut icon"
-      href="{{ url_for('static', filename='favicon-light.ico') }}"
+      href="{{ url_for('static', filename='img/favicon-light.ico') }}"
       media="(prefers-color-scheme: light)"
     />
     <link
       rel="shortcut icon"
-      href="{{ url_for('static', filename='favicon-dark.ico') }}"
+      href="{{ url_for('static', filename='img/favicon-dark.ico') }}"
       media="(prefers-color-scheme: dark)"
     />
+    {% if addNavbar %} 
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/nav.css') }}"
+    />
+    {% endif %} 
+    
     {% block css %} {% endblock css %}
   </head>
   <body>
@@ -133,11 +141,28 @@
       <br/>
       <hr/>
       <ul>
-          {% for tag in tags %}
-          <li><a href="#">{{ tag }}</a>
+          {% for tag in visibleTags %}
+          <li>
+            <a href="{# #}" class="tags">{{ tag }}</a>
+          </li>
           {% endfor %}
-          <li><a href="#">...</a></li>
+            {% if hiddenTags %}
+            <li>
+            <input value="..." type="button" onClick="toggleMenu()"/>
+            </li>
+          </ul>
+          <div id="pop-menu" class="hidden">
+              <ul>
+                {% for tag in hiddenTags %}
+                <a href="{# #}" class="tags">{{ tag }}</a>
+                {% endfor %}
+              </ul>
+          </div>
+            {% else %}
+          </ul>
+            {% endif %}
       </ul>
+      
       <hr/>
     </nav>
     {% endif %}
@@ -164,5 +189,13 @@
       </a>
     </footer>
     {% endif %}
+
+    <script>
+      toggleMenu = () => {
+        let hiddenNav = document.getElementById("pop-menu");
+        let state = hiddenNav.className;
+        hiddenNav.className = state == "hidden" ? "visible" : "hidden";
+      };
+    </script>
   </body>
 </html>

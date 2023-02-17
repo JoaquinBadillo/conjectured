@@ -1,4 +1,9 @@
-# Remove virtual environment
+# Ignore virtual environment
 flaskenv/
-__pycache__/
+
+# Ignore environment file
 .env
+
+# Ignore generated files and directories
+__pycache__/
+instance/

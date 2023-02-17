@@ -1,41 +1,6 @@
 a {
   text-decoration: none;
-}
-
-nav {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background-color: #121212;
-  padding-top: 5vh;
-  font-size: calc(30% + 1vw);
-  z-index: 1;
-}
-
-nav path {
-  stroke: white;
-}
-
-nav > ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-evenly;
-  font-weight: bold;
-}
-
-nav a {
-  text-decoration: none;
   color: #eff3f6;
-}
-
-@media only screen and (max-width: 500px) {
-  nav > ul {
-    justify-content: space-around;
-  }
-}
-
-nav a:hover {
-  color: #309ce7;
 }
 
 section {

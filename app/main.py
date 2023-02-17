@@ -7,7 +7,7 @@ from markdown.extensions.extra import ExtraExtension
 
 app = Flask(__name__)
 
-with open('.env', 'r') as data:
+with open('../.env', 'r') as data:
     line = data.readline()
     SECRET_KEY = line.split('\"')[1]
     app.config['SECRET_KEY'] = SECRET_KEY
@@ -20,4 +20,4 @@ ALLOWED_EXTENSIONS = {'md', 'png', 'jpg', 'jpeg'}
 from routes import *
 
 if __name__ == '__main__':
-    app.run(host = "0.0.0.0", debug=True)
+    app.run(port = 8080, debug=True)

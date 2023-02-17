@@ -1,0 +1,64 @@
+nav {
+    width: 100%;
+    height: auto;
+    background-color: #121212;
+    padding-top: 5vh;
+    font-size: calc(30% + 1vw);
+    z-index: 1;
+  }
+  
+  nav path {
+    stroke: white;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: bold;
+    color: #eff3f6;
+  }
+  
+  nav input {
+    color: #eff3f6;
+    background: none;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-family: "Ubuntu", sans-serif;
+    box-shadow: none;
+    -webkit-background-clip: text;
+    background-clip: unset;
+    -webkit-text-fill-color: #eff3f6;
+    font-size: calc(30% + 1vw);
+  }
+  
+  nav input:hover {
+    color: #309ce7;
+    -webkit-text-fill-color: #309ce7;
+    cursor: pointer;
+  }
+  
+  @media only screen and (max-width: 500px) {
+    nav > ul {
+      justify-content: space-around;
+    }
+  }
+  
+  nav a:hover {
+    color: #309ce7;
+  }
+  
+  #pop-menu {
+    padding: 2% 0;
+    overflow: hidden;
+  }
+  
+  .visible {
+    display:block;
+    height: auto;
+  }
+  
+  .hidden {
+    display:none;
+  }
