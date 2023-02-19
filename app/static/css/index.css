@@ -1,6 +1,5 @@
 a {
-  text-decoration: none;
-  color: #eff3f6;
+  text-decoration: transparent;
 }
 
 section {
@@ -47,32 +46,32 @@ h1 {
 }
 
 .card {
+  aspect-ratio: 16 / 9;
   width: 60vw;
-  height: 450px;
   flex: 0 0 auto;
   border-radius: 15px;
   overflow: hidden;
   color: #121212;
   margin: 2vw;
   position: relative;
-  z-index: 0;
-  background-size: 60vw auto;
 }
 
-#post0 {
+#featured0 {
   background-color: #b4ccf0;
 }
 
-#post1 {
+#featured1 {
   background-color: #f0c0b4;
 }
 
-#post2 {
+#featured2 {
   background-color: #e3efce;
 }
 
 .card h2 {
-  font-size: calc(100% + 1vw);
+  font-size: calc(100% + 2vw);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .card h3 {
@@ -88,42 +87,50 @@ h1 {
   color: #121212;
 }
 
-@media only screen and (min-width: 760px) {
+.card-content {
+  position: absolute;
+  bottom: 0px;
+}
+
+@media only screen and (min-width: 850px) {
+  .card {
+    background-size: 60vw auto;
+  }
+  
   .card-content {
-    position: absolute;
-    bottom: 0px;
-    padding: 15px;
     height: 50%;
-  }
-
-  /*#wallpaper0 {
-        background-image: url("../img/exp\ log.png");
-    }*/
-
-  #wallpaper1 {
-    background-image: url("../img/coordinates.png");
-  }
-
-  #wallpaper2 {
-    background-image: url("../img/exp\ log.png");
+    padding: 15px;
+    width: calc(60vw - 30px);
   }
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 850px) {
   .card {
     background-image: none;
-    width: 70vw;
-    height: 250px;
+    aspect-ratio: 16 / 9;
+    min-height: 30vh;
+    min-width: 300px;
+    height: auto;
+    background-position: top;
+    background-size: contain;
+  }
+
+  .card h2 {
+    font-size: calc(1rem + 1vw);
+    margin: 0;
   }
 
   .card-content {
-    padding: 20px;
-    height: -webkit-fill-available;
+    padding: 1.5vh 1.5vw;
+    height: 50%;
+    width: calc(100% - 3vw);
+    text-align: center;
+    vertical-align: middle;
   }
-}
-
-hr {
-  border: 5% solid white;
+  
+  .card-content p {
+    display: none;
+  }
 }
 
 footer {
@@ -150,5 +157,52 @@ a:hover > svg > #signature {
 @-webkit-keyframes sign {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+#posts {
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 5vh;
+}
+
+.post {
+  width: 300px;
+  height: auto;
+  border-radius: 15px;
+  flex: 0 0 auto;
+  padding: 1vh 1vw;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.cover {
+  width: auto;
+  height: 30vh;
+  overflow: hidden;
+  background-position: center;
+  background-size: auto 30vh;
+  margin: 0;
+  border-radius: 20px;
+}
+
+.post h2 {
+  font-size: calc(1rem + 1vw);
+  text-align: center;
+  padding: 1.5vh 1vw;
+}
+
+@media only screen and (max-width: 930px) {
+  #posts {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .post {
+    background-image: none;
   }
 }

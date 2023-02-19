@@ -19,12 +19,15 @@ def sudo(route):
 def index():
     # Get all tags that have been used in posts
     tags = models.Tag.query.join(models.Post.tags).all()
+    posts = models.Post.query.all()
 
     return render_template("index.html", 
                             title = "Conjectured",
                             addNavbar = True, 
                             visibleTags = tags[:3],
                             hiddenTags = tags[3:],
+                            featured = posts[:3],
+                            older_posts = posts,
                             addFooter = True)
 
 @app.route('/auth', methods = ['GET', 'POST'])
@@ -35,7 +38,7 @@ def auth():
                             form = form)
 
 @app.route('/upload', methods = ['GET', 'POST'])
-@sudo
+#@sudo
 def upload():
     form = forms.UploadPostForm()
     if form.validate_on_submit():

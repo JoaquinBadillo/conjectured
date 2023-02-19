@@ -1,13 +1,28 @@
 from main import app
 from models import db, Post, Tag, tag_post
+from flask import url_for
 
 with app.app_context():
     db.drop_all()
     db.create_all()
 
-    post1 = Post(title='Post 1', desc='1.1', cover_path="1.c", content_path = "1.p")
-    post2 = Post(title='Post 2', desc='2.1', cover_path="2.c", content_path = "2.p")
-    post3 = Post(title='Post 3', desc='3.1', cover_path="2.c", content_path = "3.p")
+    post1 = Post(title='Exponentials and Logarithms', 
+                desc="""Logarithms often arise when something gets divided iteratively; when 
+                        studying them I found out their properties are better understood when 
+                        looking at the opposite situation, when something gets multiplied 
+                        repeatedly.""",
+                cover_path="test1.png",
+                content_path = "undefined")
+    post2 = Post(title='Coordinate Systems', 
+                desc="""We often use cartesian coordinates to define points in space. But this
+                is not the only way to do so. Using latitude and longitude in the Earth is 
+                fundamentally different.""",
+                cover_path="test2.png", 
+                content_path = "undefined")
+    post3 = Post(title='Post 3', 
+                desc='Test', 
+                cover_path="test1.png", 
+                content_path = "3.p")
 
     tag1 = Tag(tag_name='Mathematics')
     tag2 = Tag(tag_name='Data Structures')
@@ -17,9 +32,9 @@ with app.app_context():
 
     post1.tags.append(tag1)  # Tag the first post with 'animals'
     post1.tags.append(tag4)  # Tag the first post with 'writing'
-    post3.tags.append(tag3)  # Tag the third post with 'cooking'
-    post3.tags.append(tag2)  # Tag the third post with 'tech'
-    post3.tags.append(tag4)  # Tag the third post with 'writing'
+    post2.tags.append(tag3)  # Tag the third post with 'cooking'
+    post2.tags.append(tag2)  # Tag the third post with 'tech'
+    post2.tags.append(tag4)  # Tag the third post with 'writing'
 
 
     db.session.add_all([post1, post2, post3])

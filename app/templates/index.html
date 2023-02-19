@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block css %}
+{% block styles %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
@@ -14,47 +14,43 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <section id="featured">
-        <div class="card" id="wallpaper0" style="background-image: url({{url_for('static', filename='img/exp log.png')}})">
-            <a href="{{ url_for('index') }}">
-                <div class="card-content" id="post0">
-                    <h2>Exponentials and Logarithms</h2>
-                    <div>
-                        <p>
-                        Logarithms often arise when something gets divided iteratively; when studying them 
-                        I found out their properties are better understood when looking at the opposite situation, 
-                        when something gets multiplied repeatedly.
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
-        <div class="card" id="wallpaper1">
-            <a href="{{ url_for('index') }}">
-                <div class="card-content" id="post1">
-                    <h2>Coordinate Systems</h2>
-                    <div>
-                        <p>
-                        We often use cartesian coordinates to define points in space. But this is not the only
-                        way to do so. Using latitude and longitude in the Earth is fundamentally different. 
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
 
-        <div class="card" id="wallpaper2">
+    {% if featured %}
+    <section id="featured">
+        {% for post in featured %}
+        {% set filepath = "uploads/" ~ post.cover_path %}
+        <div class="card" style = "background-image: url({{ url_for('static', filename=filepath) }})">
             <a href="{{ url_for('index') }}">
-                <div class="card-content" id="post2">
-                    <h2>Title</h2>
-                    <div>
+                <div class="card-content" id = "featured{{ loop.index0 }}">
+                    <h2>{{ post.title }}</h2>
                         <p>
-                        Description
+                            {{ post.desc }}
                         </p>
-                    </div>
                 </div>
             </a>
-        </div> 
+        </div>
+        {% endfor %}
     </section>
+    {% endif %}
+
+    {% if older_posts %}
+    <section id="posts">
+        {% for post in older_posts %}
+
+        {% set filepath = "uploads/" ~ post.cover_path %}
+
+        {% set hue = randint(0, 359, 10) %}
+
+        <div class="post">
+            <div class="cover" 
+            style="
+            background-image: url({{ url_for('static', filename=filepath) }});
+            border: solid 2px hsl({{ hue }}, 67%, 82%);
+            ">
+            </div>
+            <h2 style = "color: hsl({{ hue }}, 67%, 82%)" >{{ post.title }}</h2>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
 {% endblock %}

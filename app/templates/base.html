@@ -26,9 +26,19 @@
       type="text/css"
       href="{{ url_for('static', filename='css/nav.css') }}"
     />
+
+    <style>
+      nav path {
+        stroke: hsl({{ randint(0, 359, 10) }}, 67%, 82%);
+      }
+    </style>
+
+    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
     {% endif %} 
     
-    {% block css %} {% endblock css %}
+    {% block styles %} {% endblock styles %}
+
+    {% block scripts %} {% endblock scripts %}
   </head>
   <body>
     {% if addNavbar %} 
@@ -139,7 +149,7 @@
           </svg>   
       </center>
       <br/>
-      <hr/>
+      
       <ul>
           {% for tag in visibleTags %}
           <li>
@@ -163,7 +173,7 @@
             {% endif %}
       </ul>
       
-      <hr/>
+      
     </nav>
     {% endif %}
 
@@ -189,13 +199,5 @@
       </a>
     </footer>
     {% endif %}
-
-    <script>
-      toggleMenu = () => {
-        let hiddenNav = document.getElementById("pop-menu");
-        let state = hiddenNav.className;
-        hiddenNav.className = state == "hidden" ? "visible" : "hidden";
-      };
-    </script>
   </body>
 </html>

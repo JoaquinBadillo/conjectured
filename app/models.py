@@ -4,13 +4,13 @@ from itertools import cycle
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class TagCycler():
-    def __init__(self, tags):
-        self.tags = cycle(tags)
-        self.current = next(self.tags)
+# class TagCycler():
+#     def __init__(self, tags):
+#         self.tags = cycle(tags)
+#         self.current = next(self.tags)
 
-    def advance(self):
-        self.current = next(self.tags)
+#     def advance(self):
+#         self.current = next(self.tags)
 
 # Super Users (accounts that can post)
 class Su(db.Model):

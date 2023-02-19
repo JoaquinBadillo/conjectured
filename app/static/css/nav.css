@@ -3,12 +3,16 @@ nav {
     height: auto;
     background-color: #121212;
     padding-top: 5vh;
-    font-size: calc(30% + 1vw);
+    font-size: calc(80% + 1vw);
     z-index: 1;
+  }
+
+  nav a {
+    color: #b2ccd6;
   }
   
   nav path {
-    stroke: white;
+    stroke: #82aaff;
   }
   
   nav ul {
@@ -16,11 +20,12 @@ nav {
     display: flex;
     justify-content: space-evenly;
     font-weight: bold;
-    color: #eff3f6;
+    color: #b2ccd6;
+    margin-bottom: 2vh;
   }
   
   nav input {
-    color: #eff3f6;
+    color: #b2ccd6;
     background: none;
     border: none;
     outline: none;
@@ -29,7 +34,7 @@ nav {
     box-shadow: none;
     -webkit-background-clip: text;
     background-clip: unset;
-    -webkit-text-fill-color: #eff3f6;
+    -webkit-text-fill-color: #b2ccd6;
     font-size: calc(30% + 1vw);
   }
   
