@@ -1,11 +1,17 @@
 from main import app, db
 from flask import (render_template, redirect, url_for, flash, get_flashed_messages, session, 
-                    request, Response)
+                    request, Response, Markup)
 import functools
 import models
 import forms
 
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from markdown import markdown
+from markdown.extensions.codehilite import CodeHiliteExtension
+from markdown.extensions.extra import ExtraExtension
+
+from micawber import parse_html
 
 def sudo(route):
     @functools.wraps(route)
@@ -38,7 +44,7 @@ def auth():
                             form = form)
 
 @app.route('/upload', methods = ['GET', 'POST'])
-#@sudo
+@sudo
 def upload():
     form = forms.UploadPostForm()
     if form.validate_on_submit():
@@ -55,6 +61,28 @@ def upload():
     return render_template('upload.html', 
                             title = "Upload", 
                             form=form)
+
+@app.route('/pub-<index>')
+def pub(index):
+    post = models.Post.query.get(index)
+    content_path = post.content_path
+    markdown_content = ""
+    with open(f".{url_for('static', filename = 'uploads/' + content_path)}", "r") as f:
+
+        markdown_content = markdown(f.read(), 
+                                    extensions=[
+                                        CodeHiliteExtension(linenums=False, css_class='highlight'), 
+                                        ExtraExtension()
+                                    ])
+        
+    return render_template('pub.html', post = markdown_content)
+
+@app.route('/md')
+def md():
+    with open("./static/uploads/test.md", "r") as f:
+        markdown_content = markdown(f.read())
+        return render_template('pub.html', post = markdown_content)
+
 
 # Invalid URL
 @app.errorhandler(404)

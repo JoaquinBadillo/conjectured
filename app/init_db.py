@@ -12,17 +12,17 @@ with app.app_context():
                         looking at the opposite situation, when something gets multiplied 
                         repeatedly.""",
                 cover_path="test1.png",
-                content_path = "undefined")
+                content_path = "test.md")
     post2 = Post(title='Coordinate Systems', 
                 desc="""We often use cartesian coordinates to define points in space. But this
                 is not the only way to do so. Using latitude and longitude in the Earth is 
                 fundamentally different.""",
                 cover_path="test2.png", 
-                content_path = "undefined")
+                content_path = "test.md")
     post3 = Post(title='Post 3', 
                 desc='Test', 
                 cover_path="test1.png", 
-                content_path = "3.p")
+                content_path = "test.md")
 
     tag1 = Tag(tag_name='Mathematics')
     tag2 = Tag(tag_name='Data Structures')

@@ -74,11 +74,6 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.card h3 {
-  font-size: 18px;
-  color: #383838;
-}
-
 .card p {
   font-size: calc(60% + 1vw);
 }

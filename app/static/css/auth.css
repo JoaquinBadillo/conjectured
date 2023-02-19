@@ -1,3 +1,7 @@
+h1 {
+  color: #ffffff;
+}
+
 .wrapper {
   width: 100vw;
   display: flex;
@@ -38,6 +42,10 @@ input {
   -webkit-background-clip: text;
 }
 
+::-ms-reveal {
+  filter: invert(60%);
+}
+
 .submit-button {
   grid-column: 3 / 5;
   -webkit-text-fill-color: #ffffff;
@@ -45,6 +53,8 @@ input {
 
 .submit-button:hover {
   cursor: pointer;
+  color: #309ce7;
+  -webkit-text-fill-color: #309ce7;
 }
 
 h1 {

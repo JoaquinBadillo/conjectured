@@ -1,3 +1,7 @@
+h1 {
+  color: #ffffff;
+}
+
 .formcard {
   width: 100vw;
   border-radius: 15px;
@@ -8,31 +12,31 @@
 }
 
 .card {
+  aspect-ratio: 16 / 9;
   width: 60vw;
-  height: 450px;
   flex: 0 0 auto;
   border-radius: 15px;
   overflow: hidden;
   color: #121212;
   margin: 2vw;
-  margin-bottom: 0;
   position: relative;
-  z-index: 0;
-  background-size: 60vw auto;
 }
 
 .card-content {
   background-color: #b4ccf0;
-  width: -webkit-fill-available;
-  height: 225px;
+  position: absolute;
+  bottom: 0px;
 }
 
-@media only screen and (min-width: 760px) {
+@media only screen and (min-width: 850px) {
+  .card {
+    background-size: 60vw auto;
+  }
+  
   .card-content {
-    position: absolute;
-    bottom: 0px;
     height: 50%;
     padding: 15px;
+    width: calc(60vw - 30px);
   }
 }
 
@@ -67,15 +71,13 @@
   display: block;
   width: 100%;
   font-family: "Ubuntu", sans-serif;
-  font-size: calc(100% + 1vw);
+  font-size: calc(100% + 2vw);
   background: none;
   border: none;
   outline: none;
   border-radius: 5px;
-  margin-block-start: 0.83em;
-  margin-block-end: 0.83em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .card .desc {
@@ -95,10 +97,16 @@
 
 .tags {
   background: none;
-  border: 2px solid #343536;
+  border: 2px solid #eff3f6;
   border-radius: 5px;
   width: 100%;
   color: #eff3f6;
+  padding: 10px;
+  box-shadow: none;
+  background-clip: unset;
+  -webkit-text-fill-color: #a0a0a0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
 }
 
 .tags::placeholder {
@@ -135,6 +143,7 @@
   right: 0;
   bottom: 0;
   vertical-align: middle;
+  color: #ffffff;
 }
 
 #content-uploaded {

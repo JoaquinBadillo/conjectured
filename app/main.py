@@ -1,10 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from markdown import markdown
-from markdown.extensions.codehilite import CodeHiliteExtension
-from markdown.extensions.extra import ExtraExtension
-
 import random
 
 app = Flask(__name__)
