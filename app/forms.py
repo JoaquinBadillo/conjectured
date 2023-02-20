@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea, TextInput
 
 class SudoForm(FlaskForm):
-    user = StringField(u'User', validators = [DataRequired()])
+    username = StringField(u'User', validators = [DataRequired()])
     password = StringField(u'Password', validators = [DataRequired()])
     submit = SubmitField(u'Submit');
 

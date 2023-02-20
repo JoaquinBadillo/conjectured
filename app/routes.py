@@ -2,7 +2,7 @@ from main import app, db
 from flask import (render_template, redirect, url_for, flash, get_flashed_messages, session, 
                     request, Response, Markup)
 import functools
-import models
+from models import Tag, Post, Su
 import forms
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,8 +24,8 @@ def sudo(route):
 @app.route('/')
 def index():
     # Get all tags that have been used in posts
-    tags = models.Tag.query.join(models.Post.tags).all()
-    posts = models.Post.query.all()
+    tags = Tag.query.join(Post.tags).all()
+    posts = Post.query.all()
 
     return render_template("index.html", 
                             title = "Conjectured",
@@ -38,18 +38,32 @@ def index():
 
 @app.route('/auth', methods = ['GET', 'POST'])
 def auth():
+    next_url = request.args.get('next') or request.form.get('next')
     form = forms.SudoForm()
+    if form.validate_on_submit():
+        user = Su.query.filter_by(username = form.username.data).first()
+        print(user)
+        print(form.password.data)
+        print(user.verify(form.password.data))
+        print(user.verify("secret!"))
+        if user and user.verify(form.password.data):
+            print("valid!")
+            session['logged_in'] = True
+            session.permanent = True
+            return redirect(next_url or url_for('index'))
+
     return render_template('auth.html', 
                             title = "Sudo Request", 
-                            form = form)
+                            form = form,
+                            next_url=next_url)
 
 @app.route('/upload', methods = ['GET', 'POST'])
 @sudo
 def upload():
     form = forms.UploadPostForm()
     if form.validate_on_submit():
-        new_post = models.Post(title = form.title,
-                                desc = form.desc)
+        new_post = Post(title = form.title.data,
+                                desc = form.desc.data)
         for file in form.files.data:
             file_filename = secure_filename(file.filename)
             data.save(os.path.join(app.config['UPLOAD_FOLDER'], data_filename))
@@ -64,7 +78,7 @@ def upload():
 
 @app.route('/pub-<index>')
 def pub(index):
-    post = models.Post.query.get(index)
+    post = Post.query.get(index)
     content_path = post.content_path
     markdown_content = ""
     with open(f".{url_for('static', filename = 'uploads/' + content_path)}", "r") as f:

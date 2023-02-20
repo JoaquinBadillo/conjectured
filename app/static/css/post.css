@@ -1,5 +1,5 @@
 body {
-    color: #fff;
+    color: #a2a6b4;
 }
 
 .content {
@@ -13,11 +13,13 @@ body {
 .content h1 {
     font-size: calc(100% + 1vw);
     text-align: center;
+    color: #b2ccd6;
 }
 
 .content h2 {
     font-size: calc(100% + 0.5vw);
     border-bottom: 1px solid #a0a0a0;
+    color: #bba0cd;
 }
 
 .content p {
@@ -31,7 +33,8 @@ body {
   }
 
 .MathJax {
-    font-size: 18px;
     overflow-x: scroll;
+    overflow-y: hidden;
+    padding-top: 0;
 }
 
