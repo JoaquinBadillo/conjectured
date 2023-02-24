@@ -18,7 +18,7 @@
     {% if featured %}
     <section id="featured">
         {% for post in featured %}
-        {% set filepath = "uploads/" ~ post.cover_path %}
+        {% set filepath = "uploads/" ~ post.id ~ '/' ~ post.cover_path %}
         <div class="card" style = "background-image: url({{ url_for('static', filename=filepath) }})">
             <a href="{{ url_for('index') }}">
                 <div class="card-content" id = "featured{{ loop.index0 }}">
@@ -33,11 +33,11 @@
     </section>
     {% endif %}
 
-    {% if older_posts %}
+    {% if morePosts %}
     <section id="posts">
-        {% for post in older_posts %}
+        {% for post in morePosts %}
 
-        {% set filepath = "uploads/" ~ post.cover_path %}
+        {% set filepath = "uploads/" ~ post.id ~ '/' ~ post.cover_path %}
 
         {% set hue = randint(0, 359, 10) %}
 

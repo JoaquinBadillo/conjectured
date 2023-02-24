@@ -16,7 +16,7 @@
 <center>
   <h1>Upload Blog Post</h1>
 </center>
-<form action="{{ url_for('upload') }}" method="post">
+<form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
   {{ form.csrf_token }}
   <div class="formcard">
     <div class="card" id="preview">
@@ -30,7 +30,8 @@
     <center style="width: 60%">
       <div class="row">{{ form.tags(placeholder="Tags", class="tags") }}</div>
       <div class="row file-wrapper">
-        {{ form.cover(class="file-upload", **{"onchange":"changeCover(this)"})
+        {{ form.cover(class="file-upload", 
+        **{"onchange":"changeCover(this)"})
         }}
         <div class="styled">
           <span>Upload Cover</span>

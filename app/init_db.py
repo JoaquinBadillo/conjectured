@@ -24,8 +24,7 @@ with app.app_context():
                         cover_path="test1.png", 
                         content_path = "test.md")
     
-        user1 = Su(username = 'Tester')
-        user1.set_password('secret!')
+        user1 = Su(username = 'Tester', password='secret!')
 
         tag1 = Tag(tag_name='Mathematics')
         tag2 = Tag(tag_name='Data Structures')

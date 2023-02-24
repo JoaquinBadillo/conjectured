@@ -1,17 +1,21 @@
+import os
+
 from main import app, db
 from flask import (render_template, redirect, url_for, flash, get_flashed_messages, session, 
                     request, Response, Markup)
 import functools
-from models import Tag, Post, Su
+from models import *
 import forms
 
+from werkzeug.urls import url_parse
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 
 from markdown import markdown
 from markdown.extensions.codehilite import CodeHiliteExtension
 from markdown.extensions.extra import ExtraExtension
 
-from micawber import parse_html
+# from micawber import parse_html -- Used to embed videos
 
 def sudo(route):
     @functools.wraps(route)
@@ -33,55 +37,91 @@ def index():
                             visibleTags = tags[:3],
                             hiddenTags = tags[3:],
                             featured = posts[:3],
-                            older_posts = posts,
+                            morePosts = posts[3:],
                             addFooter = True)
 
 @app.route('/auth', methods = ['GET', 'POST'])
 def auth():
-    next_url = request.args.get('next') or request.form.get('next')
-    form = forms.SudoForm()
+    next_url = request.args.get('next')
+    form = forms.SudoForm(next_page = next_url)
+
     if form.validate_on_submit():
         user = Su.query.filter_by(username = form.username.data).first()
-        print(user)
-        print(form.password.data)
-        print(user.verify(form.password.data))
-        print(user.verify("secret!"))
         if user and user.verify(form.password.data):
-            print("valid!")
             session['logged_in'] = True
             session.permanent = True
-            return redirect(next_url or url_for('index'))
+            return redirect(next_url or url_for('index')) 
 
     return render_template('auth.html', 
                             title = "Sudo Request", 
                             form = form,
-                            next_url=next_url)
+                            next=next_url)
 
 @app.route('/upload', methods = ['GET', 'POST'])
 @sudo
 def upload():
     form = forms.UploadPostForm()
     if form.validate_on_submit():
-        new_post = Post(title = form.title.data,
-                                desc = form.desc.data)
-        for file in form.files.data:
-            file_filename = secure_filename(file.filename)
-            data.save(os.path.join(app.config['UPLOAD_FOLDER'], data_filename))
-        
+        content = request.files.getlist("content")
+        cover = request.files["cover"]
 
-        return render_template('upload.html', 
-                                title = "Upload", 
-                                form=form)
+        if not(content and cover):
+            flash("Upload failed: Add cover and content")
+            return redirect(url_for('index'))
+
+        new_post = Post(title = form.title.data,
+                        desc = form.desc.data)
+        tags = []
+
+        for tag_name in form.tags.data:
+            tag = Tag.query.filter_by(tag_name = tag_name).first()
+            if not tag:
+                tag = Tag(tag_name='Mathematics')
+                tags.append(tag)
+            new_post.tags.append(tag)
+        
+        if tags:
+            db.session.add_all(tags)
+
+        db.session.add(new_post)
+
+        new_post = Post.query.filter_by(title = form.title.data).first()
+        
+        directory = app.config['UPLOAD_FOLDER'] + str(new_post.id)
+        os.mkdir(directory)
+        
+        for file in content:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(directory, filename))
+            if filename.split(".")[-1] == "md":
+                new_post.content_path = filename
+        
+        filename = secure_filename(cover.filename)
+        file.save(os.path.join(directory, filename))
+        new_post.cover_path = filename
+
+        db.session.commit()
+
+        flash("Post uploaded!")
+        return redirect(url_for('index'))
+
     return render_template('upload.html', 
                             title = "Upload", 
-                            form=form)
+                            form = form)
 
-@app.route('/pub-<index>')
+@app.route('/posts/<index>')
 def pub(index):
     post = Post.query.get(index)
+
+    # If post does not exist redirect to index
+    if not post:
+        flash("Error: Invalid Post Number")
+        return redirect(url_for('index'))
+
+    # Parse markdown
     content_path = post.content_path
     markdown_content = ""
-    with open(f".{url_for('static', filename = 'uploads/' + content_path)}", "r") as f:
+    with open(f"./static/uploads/{index}/{content_path}", "r") as f:
 
         markdown_content = markdown(f.read(), 
                                     extensions=[
@@ -90,12 +130,6 @@ def pub(index):
                                     ])
         
     return render_template('pub.html', post = markdown_content)
-
-@app.route('/md')
-def md():
-    with open("./static/uploads/test.md", "r") as f:
-        markdown_content = markdown(f.read())
-        return render_template('pub.html', post = markdown_content)
 
 
 # Invalid URL

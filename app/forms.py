@@ -9,6 +9,7 @@ from wtforms.widgets import TextArea, TextInput
 class SudoForm(FlaskForm):
     username = StringField(u'User', validators = [DataRequired()])
     password = StringField(u'Password', validators = [DataRequired()])
+    next_page = StringField()
     submit = SubmitField(u'Submit');
 
 class TagListField(Field):
@@ -30,6 +31,6 @@ class UploadPostForm(FlaskForm):
     title = StringField(u'Title', validators = [DataRequired()])
     tags = TagListField(u'Tags')
     desc = StringField(u'Description', widget=TextArea(), validators = [DataRequired()])
-    cover = FileField(u'Cover', validators=[FileRequired()])
-    content = MultipleFileField(u'Content', validators=[FileRequired()])
+    cover = FileField(u'Cover')
+    content = MultipleFileField(u'Content')
     submit = SubmitField(u'Submit');
