@@ -20,7 +20,7 @@
         {% for post in featured %}
         {% set filepath = "uploads/" ~ post.id ~ '/' ~ post.cover_path %}
         <div class="card" style = "background-image: url({{ url_for('static', filename=filepath) }})">
-            <a href="{{ url_for('index') }}">
+            <a href="/posts/{{ post.id }}">
                 <div class="card-content" id = "featured{{ loop.index0 }}">
                     <h2>{{ post.title }}</h2>
                         <p>
@@ -40,7 +40,7 @@
         {% set filepath = "uploads/" ~ post.id ~ '/' ~ post.cover_path %}
 
         {% set hue = randint(0, 359, 10) %}
-
+        <a href="/posts/{{ post.id }}">
         <div class="post">
             <div class="cover" 
             style="
@@ -50,6 +50,7 @@
             </div>
             <h2 style = "color: hsl({{ hue }}, 67%, 82%)" >{{ post.title }}</h2>
         </div>
+        </a>
         {% endfor %}
     </section>
     {% endif %}

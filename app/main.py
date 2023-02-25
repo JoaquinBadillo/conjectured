@@ -16,8 +16,6 @@ db = SQLAlchemy(app)
 UPLOAD_FOLDER = './static/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-ALLOWED_EXTENSIONS = {'md', 'png', 'jpg', 'jpeg'}
-
 app.jinja_env.globals.update(randint=random.randrange)
 
 from routes import *

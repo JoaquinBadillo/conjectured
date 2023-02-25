@@ -164,6 +164,28 @@ h1 {
   overflow: hidden;
 }
 
+#validate {
+  font-size: calc(60% + 1vw);
+  background: none;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-family: "Ubuntu", sans-serif;
+  color: #ffffff;
+  box-shadow: none;
+  background-clip: unset;
+  -webkit-text-fill-color: #a0a0a0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  padding: 5px;
+}
+
+#validate:hover {
+  cursor: pointer;
+  color: #309ce7;
+  -webkit-text-fill-color: #309ce7;
+}
+
 .submit-button {
   font-size: calc(100% + 1vw);
   background: none;

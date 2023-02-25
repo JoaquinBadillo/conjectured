@@ -17,6 +17,8 @@ from markdown.extensions.extra import ExtraExtension
 
 # from micawber import parse_html -- Used to embed videos
 
+ALLOWED_EXTENSIONS = {'md', 'png', 'jpg', 'jpeg'}
+
 def sudo(route):
     @functools.wraps(route)
     def next(*args, **kwargs):
@@ -60,6 +62,10 @@ def auth():
 @app.route('/upload', methods = ['GET', 'POST'])
 @sudo
 def upload():
+    # TODO: Validate data before saving
+    # Check that the files have the allowed extensions
+    # Check that a single markdown file was uploaded
+
     form = forms.UploadPostForm()
     if form.validate_on_submit():
         content = request.files.getlist("content")
@@ -88,21 +94,26 @@ def upload():
         new_post = Post.query.filter_by(title = form.title.data).first()
         
         directory = app.config['UPLOAD_FOLDER'] + str(new_post.id)
-        os.mkdir(directory)
-        
-        for file in content:
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(directory, filename))
-            if filename.split(".")[-1] == "md":
-                new_post.content_path = filename
-        
-        filename = secure_filename(cover.filename)
-        file.save(os.path.join(directory, filename))
-        new_post.cover_path = filename
 
-        db.session.commit()
+        try:
+            os.mkdir(directory)
 
-        flash("Post uploaded!")
+            for file in content:
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(directory, filename))
+                if filename.split(".")[-1] == "md":
+                    new_post.content_path = filename
+            
+            filename = secure_filename(cover.filename)
+            cover.save(os.path.join(directory, filename))
+            new_post.cover_path = filename
+
+            db.session.commit()
+
+            flash("Post uploaded!")
+        except:
+            flash("Fatal error!")
+            
         return redirect(url_for('index'))
 
     return render_template('upload.html', 

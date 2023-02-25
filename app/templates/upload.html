@@ -31,7 +31,7 @@
       <div class="row">{{ form.tags(placeholder="Tags", class="tags") }}</div>
       <div class="row file-wrapper">
         {{ form.cover(class="file-upload", 
-        **{"onchange":"changeCover(this)"})
+          **{"onchange":"changeCover(this)"})
         }}
         <div class="styled">
           <span>Upload Cover</span>
@@ -39,14 +39,16 @@
       </div>
       <div class="row file-wrapper">
         {{ form.content(class="file-upload",
-        **{"onchange":"displayUploads(this)"}) }}
+          **{"onchange":"displayUploads(this)"}) }}
         <div class="styled">
           <span>Upload Content</span>
         </div>
       </div>
       <div id="content-uploaded"></div>
     </center>
-    {{ form.submit(value = "Post", class="submit-button") }}
+    {{ form.submit(value = "Post", 
+        class="submit-button", 
+        **{"disabled" : ""}) }}
   </div>
 </form>
 {% endblock %}
