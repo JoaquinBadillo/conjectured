@@ -4,12 +4,17 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/index.js') }}" async></script>
+{% endblock %}
+
 {% block content %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-            <div class="flash">
-                {{ message }}
+            <div id="flash">
+                <div class="message">{{ message }}</div>
+                <button type="button" id="close-flash">&#10006;</button>
             </div>
             {% endfor %}
         {% endif %}
@@ -35,8 +40,8 @@
 
     {% if morePosts %}
     <section id="posts">
-        {% for post in morePosts %}
-
+        {% for i in range(morePosts) %}
+        {% set post = posts[i] %}
         {% set filepath = "uploads/" ~ post.id ~ '/' ~ post.cover_path %}
 
         {% set hue = randint(0, 359, 10) %}

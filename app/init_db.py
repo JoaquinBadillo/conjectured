@@ -1,9 +1,14 @@
 from main import app
-from models import db, Post, Tag, tag_post, Su
+from models import *
 from flask import url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 
 with app.app_context():
+        # TODO:
+        # This program was used for testing during initial development
+        # Now its should only initialize the database columns (drop all and create all)
+        # Creating posts should now be left for a unit test on the upload function/route
+
         db.drop_all()
         db.create_all()
         post1 = Post(title='Exponentials and Logarithms', 
@@ -32,12 +37,11 @@ with app.app_context():
         tag4 = Tag(tag_name='Programming')
         tag5 = Tag(tag_name='Networks')
 
-        post1.tags.append(tag1)  # Tag the first post with 'animals'
-        post1.tags.append(tag4)  # Tag the first post with 'writing'
-        post2.tags.append(tag3)  # Tag the third post with 'cooking'
-        post2.tags.append(tag2)  # Tag the third post with 'tech'
-        post2.tags.append(tag4)  # Tag the third post with 'writing'
-
+        post1.tags.append(tag1) 
+        post1.tags.append(tag4) 
+        post2.tags.append(tag3) 
+        post2.tags.append(tag2)  
+        post2.tags.append(tag4) 
 
         db.session.add_all([post1, post2, post3])
         db.session.add_all([tag1, tag2, tag3, tag4, tag5])

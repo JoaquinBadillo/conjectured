@@ -33,7 +33,7 @@
       }
     </style>
 
-    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/nav.js') }}" defer></script>
     {% endif %} 
     
     {% block styles %} {% endblock styles %}
@@ -158,20 +158,22 @@
           {% endfor %}
             {% if hiddenTags %}
             <li>
-            <input value="..." type="button" onClick="toggleMenu()"/>
+            <button id="toggle-tags" type="button">...</button>
             </li>
-          </ul>
+      </ul>
           <div id="pop-menu" class="hidden">
               <ul>
                 {% for tag in hiddenTags %}
-                <a href="{# #}" class="tags">{{ tag }}</a>
+                <li>
+                  <a href="{# #}" class="tags">{{ tag }}</a>
+                </li>
                 {% endfor %}
               </ul>
           </div>
             {% else %}
           </ul>
             {% endif %}
-      </ul>
+
       
       
     </nav>

@@ -67,3 +67,23 @@ nav {
   .hidden {
     display:none;
   }
+
+  #toggle-tags {
+    color: #b2ccd6;
+    background: none;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: none;
+    -webkit-text-fill-color: #b2ccd6;
+    -webkit-background-clip: text;
+    background-clip: unset;
+    font-family: "Ubuntu", sans-serif;
+    font-size: calc(80% + 1vw);
+  }
+  
+  #toggle-tags:hover {
+    cursor: pointer;
+    color: #309ce7;
+    -webkit-text-fill-color: #309ce7;
+  }

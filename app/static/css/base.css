@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 html::-webkit-scrollbar {
   width: 0;
@@ -10,6 +10,10 @@ body {
   font-family: "Ubuntu", sans-serif;
   background-color: #131313;
   scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 0;
 }
 
 footer {

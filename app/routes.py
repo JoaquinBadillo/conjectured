@@ -1,8 +1,9 @@
 import os
 
-from main import app, db
-from flask import (render_template, redirect, url_for, flash, get_flashed_messages, session, 
-                    request, Response, Markup)
+from main import app
+from flask import (abort, flash, get_flashed_messages, Markup,
+                    redirect, render_template, Response, request, 
+                    url_for, session)
 import functools
 from models import *
 import forms
@@ -17,8 +18,6 @@ from markdown.extensions.extra import ExtraExtension
 
 # from micawber import parse_html -- Used to embed videos
 
-ALLOWED_EXTENSIONS = {'md', 'png', 'jpg', 'jpeg'}
-
 def sudo(route):
     @functools.wraps(route)
     def next(*args, **kwargs):
@@ -29,18 +28,30 @@ def sudo(route):
 
 @app.route('/')
 def index():
-    # Get all tags that have been used in posts
+    # Get all tags that have been used in posts and get all posts
     tags = Tag.query.join(Post.tags).all()
     posts = Post.query.all()
 
+    featured = posts[-3:]
+    featured.reverse()
+    morePosts = len(posts) - len(featured)
     return render_template("index.html", 
                             title = "Conjectured",
                             addNavbar = True, 
                             visibleTags = tags[:3],
                             hiddenTags = tags[3:],
-                            featured = posts[:3],
-                            morePosts = posts[3:],
+                            posts = posts,
+                            # Last 3 posts
+                            featured = featured, 
+                            # The rest of the posts (use index to iterate in reverse order)
+                            morePosts = morePosts,
                             addFooter = True)
+
+# TODO:
+# Create a route to show content based by tag
+# A good refactor could be to create an restful API that gets the posts
+# Then the client side could generate the post views 
+# Added benefit, the client sees more dynamism (instead of redirects)
 
 @app.route('/auth', methods = ['GET', 'POST'])
 def auth():
@@ -51,7 +62,6 @@ def auth():
         user = Su.query.filter_by(username = form.username.data).first()
         if user and user.verify(form.password.data):
             session['logged_in'] = True
-            session.permanent = True
             return redirect(next_url or url_for('index')) 
 
     return render_template('auth.html', 
@@ -62,10 +72,6 @@ def auth():
 @app.route('/upload', methods = ['GET', 'POST'])
 @sudo
 def upload():
-    # TODO: Validate data before saving
-    # Check that the files have the allowed extensions
-    # Check that a single markdown file was uploaded
-
     form = forms.UploadPostForm()
     if form.validate_on_submit():
         content = request.files.getlist("content")
@@ -75,24 +81,48 @@ def upload():
             flash("Upload failed: Add cover and content")
             return redirect(url_for('index'))
 
+        
+        # Check that extensions are appropriate
+        # These were already checked by JavaScript to enable submit
+        # But anyone can add a button to HTML without passing the tests
+
+        COVER_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+        if cover.filename.split('.')[-1] not in COVER_EXTENSIONS:
+            flash("Upload failed: Unsupported cover image")
+            return redirect(url_for('index'))
+
+        CONTENT_EXTENSIONS = {'md', 'png', 'jpg', 'jpeg'}
+        for file in content:
+            if file.filename.split('.')[-1] not in CONTENT_EXTENSIONS:
+                flash("Upload failed: Unsupported content")
+                return redirect(url_for('index'))
+            elif file.filename.split('.')[-1] == 'md':
+                CONTENT_EXTENSIONS.remove('md')
+
+
         new_post = Post(title = form.title.data,
                         desc = form.desc.data)
         tags = []
 
         for tag_name in form.tags.data:
             tag = Tag.query.filter_by(tag_name = tag_name).first()
+
+            # We will need to add the tag to DB if it doesn't exist yet
+            # To keep track lets add them to a list with a bigger scope (tags)
             if not tag:
                 tag = Tag(tag_name='Mathematics')
                 tags.append(tag)
+
             new_post.tags.append(tag)
         
+        # Check if new tags were created, then add them ti DB
         if tags:
             db.session.add_all(tags)
-
-        db.session.add(new_post)
-
-        new_post = Post.query.filter_by(title = form.title.data).first()
         
+        # Add to session
+        db.session.add(new_post)
+        # Get session's post (now we have an id number)
+        new_post = Post.query.filter_by(title = form.title.data).first()
         directory = app.config['UPLOAD_FOLDER'] + str(new_post.id)
 
         try:
@@ -108,11 +138,13 @@ def upload():
             cover.save(os.path.join(directory, filename))
             new_post.cover_path = filename
 
+            # All good, save to DB
             db.session.commit()
 
-            flash("Post uploaded!")
+            flash("Post Uploaded!")
         except:
-            flash("Fatal error!")
+            # Directory exists, avoid overwriting
+            flash("Fatal Error!")
             
         return redirect(url_for('index'))
 
@@ -132,16 +164,23 @@ def pub(index):
     # Parse markdown
     content_path = post.content_path
     markdown_content = ""
-    with open(f"./static/uploads/{index}/{content_path}", "r") as f:
+    try:
+        with open(f"./static/uploads/{index}/{content_path}", "r") as f:
+            markdown_content = markdown(f.read(), 
+                                        extensions=[
+                                            CodeHiliteExtension(linenums=False, 
+                                                css_class='highlight'), 
+                                            ExtraExtension()
+                                        ])
+            # TODO:
+            # Use micawber to embed videos on the HTML :)
+            # This allows for more creative posts to be possible
+            # Create CSS for highlighted code.
+    except:
+        # Post exists on database but content does not exist, raise internal server error
+        abort(500)
 
-        markdown_content = markdown(f.read(), 
-                                    extensions=[
-                                        CodeHiliteExtension(linenums=False, css_class='highlight'), 
-                                        ExtraExtension()
-                                    ])
-        
     return render_template('pub.html', post = markdown_content)
-
 
 # Invalid URL
 @app.errorhandler(404)

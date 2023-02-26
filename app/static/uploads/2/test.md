@@ -6,7 +6,7 @@ Use union as the operator on the definition
 
 ## Basis
 
-$\mathcal{P}(\varnothing) = \{\varnothing\}$
+$\mathcal{P}(\varnothing) = \\{\varnothing\\}$
 
 ## Recursive Step
 
