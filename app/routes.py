@@ -1,8 +1,8 @@
 import os
 
 from main import app
-from flask import (abort, flash, get_flashed_messages, Markup,
-                    redirect, render_template, Response, request, 
+from flask import (abort, flash, get_flashed_messages, redirect,
+                    render_template, Response, request, 
                     url_for, session)
 import functools
 from models import *
@@ -28,40 +28,37 @@ def sudo(route):
 
 @app.route('/')
 def index():
+    # TODO:
+    # Could check if user is logged in to show an upload button
+
     # Get all tags that have been used in posts and get all posts
     tags = Tag.query.join(Post.tags).all()
     posts = Post.query.all()
 
-    featured = posts[-3:]
-    featured.reverse()
-    morePosts = len(posts) - len(featured)
+    featured = len(posts[-3:])
+
     return render_template("index.html", 
                             title = "Conjectured",
                             addNavbar = True, 
                             visibleTags = tags[:3],
                             hiddenTags = tags[3:],
-                            posts = posts,
-                            # Last 3 posts
+                            posts = len(posts),
                             featured = featured, 
-                            # The rest of the posts (use index to iterate in reverse order)
-                            morePosts = morePosts,
                             addFooter = True)
-
-# TODO:
-# Create a route to show content based by tag
-# A good refactor could be to create an restful API that gets the posts
-# Then the client side could generate the post views 
-# Added benefit, the client sees more dynamism (instead of redirects)
 
 @app.route('/auth', methods = ['GET', 'POST'])
 def auth():
     next_url = request.args.get('next')
-    form = forms.SudoForm(next_page = next_url)
-
+    form = forms.SudoForm()
     if form.validate_on_submit():
         user = Su.query.filter_by(username = form.username.data).first()
         if user and user.verify(form.password.data):
+            # TODO: Secure cookie?
+            # Requires SSL certificate
+            # When running in locahost the server is not trusted with certificate
             session['logged_in'] = True
+
+            # FIXME: next_url is lost when method is post, always redirects to index :(
             return redirect(next_url or url_for('index')) 
 
     return render_template('auth.html', 
@@ -176,11 +173,15 @@ def pub(index):
             # Use micawber to embed videos on the HTML :)
             # This allows for more creative posts to be possible
             # Create CSS for highlighted code.
+
+            # Wondering if the client should parse the data instead of the server...
     except:
         # Post exists on database but content does not exist, raise internal server error
         abort(500)
 
-    return render_template('pub.html', post = markdown_content)
+    return render_template('pub.html', 
+                            title = post.title,
+                            post = markdown_content)
 
 # Invalid URL
 @app.errorhandler(404)

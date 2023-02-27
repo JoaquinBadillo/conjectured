@@ -27,6 +27,7 @@ CSRFProtect(app)
 app.jinja_env.globals.update(randint=random.randrange)
 
 from routes import *
+from api import *
 
 if __name__ == '__main__':
     # Might add ssl_context=("cert.pem", "key.pem") on server
