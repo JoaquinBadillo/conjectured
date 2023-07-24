@@ -14,8 +14,6 @@ Before executing the app, there are some dependencies that must be installed in 
 
 The database connection was made for a PostgreSQL database. You will need to create a `.env` file and provide the URL for your database. For instance, using a local database, the `.env` file should look like this:
 
+```{env}
+DATABASE_URL=postgresql://user:password/localhost/database
 ```
-DATABASE_URL=postgresql://localhost/conjectured
-```
-
-To use locally you must first have PostgreSQL installed in your system. Then you can create the database with the `createdb` command. The database name must be `conjectured`. Then you can create the tables with the `psql -d conjectured -f db.sql` command.
