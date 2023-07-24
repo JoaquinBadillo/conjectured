@@ -1,0 +1,18 @@
+a:hover > svg > #signature {
+    stroke-dasharray: 1072;
+    stroke-dashoffset: 1072;
+    animation: sign 4s;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes sign {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @-webkit-keyframes sign {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }

@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 247 147 34;
+    --color-text: #000;
+  }
+
+  :root[class~="dark"] {
+    --color-primary: 247 147 34;
+    --color-text: #e4e4e4;
+  }
+}
+
+@layer components { 
+  .featured-content {
+    @apply max-w-[78rem] h-auto flex flex-nowrap 
+    overflow-x-scroll my-0 mx-auto
+    transition-all duration-300 ease-linear
+  }
+  
+  .card {
+    @apply w-96 h-64 flex-none
+    rounded-xl overflow-hidden
+    text-gray-900 dark:text-gray-100
+    m-4
+    relative
+    shadow-md
+    hover:shadow-gray-500/50
+    dark:hover:shadow-gray-700/50
+    hover:scale-105
+    transition-all duration-300 ease-linear
+  }
+
+  .card-content {
+    @apply px-4 py-4 h-40
+    transition-all duration-300 ease-linear
+  }
+
+  .tag {
+    @apply text-gray-600 dark:text-gray-200 font-bold
+    px-2 py-2
+    hover:text-indigo-600
+    dark:hover:text-indigo-400
+    hover:text-xl
+    transition-all duration-200 ease-linear
+  }
+
+  .sidebar-icon {
+    @apply relative flex items-center justify-center
+    h-12 w-12 my-2 mx-auto shadow-lg
+    bg-gray-800 text-green-500
+    hover:bg-green-600 hover:text-white
+    rounded-3xl hover:rounded-xl
+    transition-all duration-300 ease-linear;
+  }
+  
+  .sidebar-tooltip {
+    @apply absolute w-auto p-2 m-2 min-w-max left-14
+    rounded-md shadow-md
+    text-white bg-gray-900
+    text-xs font-bold
+    transition-all duration-100 scale-0 origin-left;
+  }
+
+}
