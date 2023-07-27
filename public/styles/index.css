@@ -1,0 +1,12 @@
+.title {
+    text-shadow: 0.15rem 0.15rem var(--color-text), -0.15rem -0.15rem var(--color-text);
+    text-align: center;
+}
+
+@supports(-webkit-text-stroke: 0.15rem var(--color-text)){
+    .title {
+        color: transparent;
+        -webkit-text-stroke: 0.15rem var(--color-text);
+        text-shadow: none;
+    }
+}
