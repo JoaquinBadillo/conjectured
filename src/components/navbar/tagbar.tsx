@@ -1,4 +1,4 @@
-import { Switch } from "../switch/switch";
+import { Switch } from "../switch";
 
 interface TagBarProps {
     tags: Array<string>;

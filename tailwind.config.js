@@ -9,7 +9,6 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'class',
   theme: {
     screens: {
       '3xs': '320px',
@@ -34,9 +33,6 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
-      gridTemplateColumns: {
-        'feed': 'repeat(auto-fill, minmax(300px, 30%))',
-      },
       keyframes : {
         sign: {
           '0%, 100%': { strokeDashoffset: 0 }
