@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const colors = require('tailwindcss/colors')
+const { transform } = require('typescript')
 
 module.exports = {
   mode: 'jit',
@@ -33,14 +34,6 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
-      keyframes : {
-        sign: {
-          '0%, 100%': { strokeDashoffset: 0 }
-        }
-      },
-      animation : {
-        sign: 'sign 4s iterations: infinite'
-      },
       colors: {
         primary: '#202225',
         secondary: '#5865F2',

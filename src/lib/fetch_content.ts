@@ -43,3 +43,27 @@ export async function getPosts() {
     
     return res
 }
+
+export async function getTaggedPosts(tag: string) {
+    const res: Result<PostProps[], string> = {};
+
+    try {
+        const result: PostProps[] = await db.any(
+            `SELECT title, post_date, description, image, slug
+             FROM posts
+             LEFT JOIN post_tag ON posts.id = post_tag.post_id
+             LEFT JOIN tags ON post_tag.tag_id = tags.id
+             WHERE tagname = $1
+             GROUP BY title, post_date, description, image, slug`,
+            [tag]
+        );
+
+        res.ok = result;
+    }
+
+    catch(err: any) {
+        res.err = err?.message ?? 'Could not get tagged posts';
+    }
+
+    return res;
+}
