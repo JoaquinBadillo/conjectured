@@ -1,0 +1,12 @@
+@keyframes thrust {
+    from {
+        transform: translate(0, 0);
+      }
+      to {
+        transform: translate(-7.5%, 7.5%)
+      }
+}
+
+.group:hover #fire {
+    animation: thrust 0.7s ease-in-out infinite alternate;
+}
