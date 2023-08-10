@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react"
 import Link from "next/link"
 import { PostProps } from "@/lib/types"
-import { Tag, TagList } from "../tags"
+import { TagList } from "../tags"
+import Image from "next/image"
 
 /*  TODO 
     Allow user to customize UI for compact or cozy cards
@@ -12,7 +12,7 @@ export function Card(props: PostProps) {
     return (
         <div className="card">
             <Link href={ `/posts/${props.slug}` }>
-                <img 
+                <Image 
                     src={props.image} 
                     alt={`${props.title} image`} 
                     className="w-full h-24 object-cover"
