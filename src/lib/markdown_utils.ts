@@ -1,5 +1,10 @@
-import { remark } from 'remark';
-import html from 'remark-html';
+import {unified} from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeRaw from 'rehype-raw'
+import rehypeFormat from 'rehype-format'
+import rehypeStringify from 'rehype-stringify'
+
 import { Result } from './types';
 import { getStorage } from './utils';
 
@@ -27,7 +32,13 @@ export async function markdownToHtml(file: string) {
     const fetchData = await fetchMarkdown(file);
 
     if (fetchData.ok != undefined) {
-        res.ok = (await remark().use(html).process(fetchData.ok)).toString();
+        res.ok = (await unified()
+        .use(remarkParse)
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(rehypeFormat)
+        .use(rehypeStringify)
+        .process(fetchData.ok)).toString();
     }
 
     else {

@@ -26,12 +26,12 @@ export default async function BlogPost({ slug }: { slug: string }) {
 
   const { title, post_date, content } = fetch_results.ok;
   const parsed = await markdownToHtml(content);
-
+ 
   if (parsed.ok != undefined) {
     return (
         <div>
           <header className="container py-4">
-            <h1 className="text-3xl font-bold">{ title }</h1>
+            <h1 className="text-3xl font-bold dark:text-white">{ title }</h1>
             <p className="text-lg">
               { `${post_date.getDate()}/${post_date.getMonth() + 1}/${post_date.getFullYear()}` }
             </p>
