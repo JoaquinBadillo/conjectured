@@ -70,7 +70,7 @@ export const ErrorCard = () => {
                     Error
                 </h3>
                 <p className="text-lg">
-                    Could not get featured posts.
+                    Could not get blog posts
                 </p>
             </div>
         </div>

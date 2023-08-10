@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
 const colors = require('tailwindcss/colors')
-const { transform } = require('typescript')
 
 module.exports = {
   mode: 'jit',
@@ -34,6 +33,17 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
+      screens: {
+        'notmobile': {'raw': '(hover: hover)'},
+      },
+      keyframes: {
+        'pulse': {
+          '50%': { 
+            opacity: 0.75,
+            transform: 'scale(1.05)',
+          },
+        }
+      },
       colors: {
         primary: '#202225',
         secondary: '#5865F2',

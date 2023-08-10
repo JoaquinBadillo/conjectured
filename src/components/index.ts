@@ -3,6 +3,5 @@ import { Feed, LoadingFeed } from './feed';
 import { Footer } from './footer';
 import { Navbar } from './navbar';
 import { Tag } from './tags';
-import { Switch } from './switch';
 
-export { Card, LoadingCard, ErrorCard, Feed, LoadingFeed, Footer, Navbar, Switch, Tag };
+export { Card, LoadingCard, ErrorCard, Feed, LoadingFeed, Footer, Navbar, Tag };

@@ -4,6 +4,7 @@ import { Result } from './types';
 import { getStorage } from './utils';
 
 const { storageClient } = getStorage();
+
 async function fetchMarkdown(file: string) {
     const res: Result<string, string> = {};
 

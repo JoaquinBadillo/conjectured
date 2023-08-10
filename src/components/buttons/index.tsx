@@ -6,9 +6,9 @@ import TagIcon from "./icons/tags"
 
 function Button(props: ButtonProps) {
     return (
-        <Link href={props.href} className="inline-flex items-center gap-5 group hover:scale-125">
+        <Link href={props.href} className="inline-flex items-center gap-3 group md:hover:scale-125" aria-label={props.label}>
             {props.icon}
-            <span className="text-black-900 dark:text-white group-hover:text-blue-500">{props.text}</span>
+            <span className="text-black-900 dark:text-white md:group-hover:text-blue-500">{props.text}</span>
         </Link>
     )
 }
