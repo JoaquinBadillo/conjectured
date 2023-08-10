@@ -15,6 +15,14 @@ const nextConfig = {
         
         return config;
       },
+    images: {
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'xlspuchsnlqfkcufcvvz.supabase.co',
+          },
+        ],
+      },
 }
 
 module.exports = nextConfig

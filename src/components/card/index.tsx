@@ -13,9 +13,11 @@ export function Card(props: PostProps) {
         <div className="card">
             <Link href={ `/posts/${props.slug}` }>
                 <Image 
-                    src={props.image} 
+                    src={props.image}
                     alt={`${props.title} image`} 
-                    className="w-full h-24 object-cover"
+                    height={96}
+                    width={384}
+                    style={{overflow: "hidden"}}
                 />
                 <div className="card-content bg-gray-300 dark:bg-gray-900">
                     <h3 className="text-2xl py-1 transition-all duration-300 ease-linear">
