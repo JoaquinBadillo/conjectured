@@ -7,6 +7,7 @@ interface TagViewProps {
         tagname: string;
     }
 }
+export const revalidate = 3600;
 
 export default function Home({ params }: TagViewProps) { 
     return (

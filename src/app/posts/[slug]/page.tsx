@@ -7,6 +7,8 @@ interface BlogPostProps {
     }
 }
 
+export const revalidate = 3600;
+
 export default function Page({ params }: BlogPostProps) {
   return (
     <Suspense fallback={ <LoadingPost /> }>
