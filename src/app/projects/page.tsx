@@ -1,16 +1,11 @@
-import { Feed, LoadingFeed } from "@components/index"
+import FilteredPosts from "@/views/filtered"
+import { LoadingFeed } from "@/components"
 import { Suspense } from "react"
-import { getTaggedPosts } from "@/lib/fetch_content"
 
-export default async function Home() {
-  const posts = await getTaggedPosts('Project')
-  .then((res) => {
-      return res.ok ?? []
-  })
-
+export default function Home() {
   return (
     <Suspense fallback={ <LoadingFeed /> }>
-      <Feed posts={posts} title="Project Posts"/>
+      <FilteredPosts tagname="Project" />
     </Suspense>
   )
 }

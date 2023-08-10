@@ -3,10 +3,26 @@
     text-align: center;
 }
 
+@media (hover:hover) {
+    .title:hover {
+        text-shadow: 0.15rem 0.15rem var(--color-text), -0.15rem -0.15rem var(--color-text);
+    }
+}
+
 @supports(-webkit-text-stroke: 0.15rem var(--color-text)){
     .title {
         color: transparent;
         -webkit-text-stroke: 0.15rem var(--color-text);
         text-shadow: none;
+    }
+}
+
+@supports(-webkit-text-stroke: 0.15rem var(--hover-color-primary)){
+    @media (hover:hover) {
+        .title:hover {
+            color: transparent;
+            -webkit-text-stroke: 0.15rem var(--hover-color-primary);
+            text-shadow: none;
+        }
     }
 }

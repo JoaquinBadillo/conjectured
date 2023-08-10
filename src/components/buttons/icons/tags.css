@@ -1,0 +1,14 @@
+@keyframes swing {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(6deg);
+    }
+}
+
+@media (hover:hover) {
+    .group:hover #tag {
+        animation: swing 0.5s ease-in-out infinite alternate;
+    }
+}

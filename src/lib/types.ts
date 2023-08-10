@@ -35,6 +35,12 @@ export interface PostProps {
 
 export interface TagProps {
     tagname: string;
+    count?: number;
+    className?: string;
+}
+
+export interface TagFeedProps {
+    tags: TagProps[];
 }
 
 export interface PostLayoutProps {
