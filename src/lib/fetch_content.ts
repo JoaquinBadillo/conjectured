@@ -9,7 +9,10 @@ export async function fetchPostData(slug: string) {
     
     try {
         const result: PostData = await db.one(
-            'SELECT title, post_date, content FROM posts WHERE slug = $1',
+            `SELECT title, post_date, content.url AS content 
+             FROM posts 
+             INNER JOIN content ON posts.content_id = content.id
+             WHERE slug = $1`,
             [slug]
         );
 
@@ -28,11 +31,13 @@ export async function getPosts() {
 
     try {
         const result: PostProps[] = await db.any(
-            `SELECT title, post_date, description, image, slug, array_agg(tagname) AS tags
+            `SELECT title, description, artwork.url AS image, slug, array_agg(tagname) AS tags
              FROM posts
              LEFT JOIN post_tag ON posts.id = post_tag.post_id
              LEFT JOIN tags ON post_tag.tag_id = tags.id
-             GROUP BY title, post_date, description, image, slug`
+             LEFT JOIN artwork ON posts.image_id = artwork.id
+             GROUP BY title, post_date, description, image, slug
+             ORDER BY post_date DESC`
         );
 
         res.ok = result;
@@ -50,11 +55,13 @@ export async function getTaggedPosts(tag: string) {
 
     try {
         const result: PostProps[] = await db.any(
-            `SELECT title, post_date, description, image, slug
+            `SELECT title, post_date, description, artwork.url AS image, slug
              FROM posts
              LEFT JOIN post_tag ON posts.id = post_tag.post_id
              LEFT JOIN tags ON post_tag.tag_id = tags.id
-             WHERE tagname = $1`,
+             LEFT JOIN artwork ON posts.image_id = artwork.id
+             WHERE tagname = $1
+             ORDER BY post_date DESC`,
             [tag]
         );
 
@@ -75,7 +82,7 @@ export async function getTags() {
         const result: TagProps[] = await db.any(
             `SELECT tagname, COUNT(*) AS count 
              FROM post_tag
-             INNER JOIN tags ON post_tag.tag_id = tags.id
+             LEFT JOIN tags ON post_tag.tag_id = tags.id
              WHERE tagname != 'Project'
              GROUP BY tagname`
         );
