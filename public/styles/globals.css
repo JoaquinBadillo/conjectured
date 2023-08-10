@@ -6,6 +6,7 @@
   :root {
     --color-primary: 247 147 34;
     --color-text: #000;
+    --hover-color-primary: #3b82f6;
   }
 }
 
@@ -23,6 +24,7 @@
     m-4
     relative
     shadow-md
+    max-w-[95%]
     hover:shadow-gray-500/50
     dark:hover:shadow-gray-700/50
     hover:scale-105

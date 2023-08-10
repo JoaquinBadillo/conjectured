@@ -1,11 +1,11 @@
-import { LoadingFeed } from "@components/index"
-import Landing from "@/views/landing";
+import FilteredPosts from "@/views/filtered"
+import { LoadingFeed } from "@/components"
 import { Suspense } from "react"
 
 export default function Home() {
   return (
     <Suspense fallback={ <LoadingFeed /> }>
-      <Landing />
+      <FilteredPosts tagname="Project" />
     </Suspense>
   )
 }

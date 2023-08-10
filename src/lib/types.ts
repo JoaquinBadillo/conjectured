@@ -1,3 +1,5 @@
+import React from "react";
+
 export type Result<T, E> = {
     ok?: T
     err?: Err<E>;
@@ -27,14 +29,27 @@ export interface PostProps {
     post_date: Date;
     description: string;
     image: string;
-    tags: string[];
+    tags?: string[];
     slug: string;
 }
 
 export interface TagProps {
     tagname: string;
+    count?: number;
+    className?: string;
+}
+
+export interface TagFeedProps {
+    tags: TagProps[];
 }
 
 export interface PostLayoutProps {
     posts: PostProps[];
+}
+
+export interface ButtonProps {
+    icon: React.ReactNode;
+    text: string;
+    label: string;
+    href: string;
 }

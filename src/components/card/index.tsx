@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { PostProps } from "@/lib/types"
-import { Tag } from "../tag"
+import { Tag, TagList } from "../tags"
 
 /*  TODO 
     Allow user to customize UI for compact or cozy cards
@@ -21,11 +21,9 @@ export function Card(props: PostProps) {
                     <h3 className="text-2xl py-1 transition-all duration-300 ease-linear">
                         { props.title }
                     </h3>
-                    <ul className="flex flex-row flex-wrap text-sm">
-                        { props.tags.map((tag) => (
-                            tag ? <Tag key={tag} tagname={tag} /> : <></>
-                        )) }
-                    </ul>
+                    
+                    { props.tags != undefined ? <TagList tags={props.tags} title={props.title} /> : <></> }
+
                     <p className="text-base break-words pt-2">
                         { props.description.length > 100 ? 
                             `${props.description.slice(0, 90)}...` :  
@@ -72,7 +70,7 @@ export const ErrorCard = () => {
                     Error
                 </h3>
                 <p className="text-lg">
-                    Could not get featured posts.
+                    Could not get blog posts
                 </p>
             </div>
         </div>

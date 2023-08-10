@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
 import { Card, LoadingCard, ErrorCard } from '../card';
 import { PostProps } from "@/lib/types"
 
-export function Feed({ posts }: { posts: PostProps[] }) {
+export function Feed({ posts, title }: { posts: PostProps[], title: string }) {
+    
     return (
         <section className='py-16 min-h-[75vh]'>
-            <h2 className="text-4xl font-bold text-center dark:text-gray-50">Blog Posts</h2>
+            <h2 className="text-4xl font-bold text-center dark:text-gray-50">{ title }</h2>
             <div className="feed">
                 { posts ? posts.map((post: PostProps) => (
                     <Card 

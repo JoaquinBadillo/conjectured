@@ -33,13 +33,16 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     extend: {
-      keyframes : {
-        sign: {
-          '0%, 100%': { strokeDashoffset: 0 }
-        }
+      screens: {
+        'notmobile': {'raw': '(hover: hover)'},
       },
-      animation : {
-        sign: 'sign 4s iterations: infinite'
+      keyframes: {
+        'pulse': {
+          '50%': { 
+            opacity: 0.75,
+            transform: 'scale(1.05)',
+          },
+        }
       },
       colors: {
         primary: '#202225',
