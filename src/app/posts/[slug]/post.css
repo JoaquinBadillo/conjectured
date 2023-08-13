@@ -1,21 +1,21 @@
 h2 {
     font-size: 1.7rem;
     font-weight: bold;
-    padding-top: 0.6rem;
+    padding: 0.6rem 0;
 }
 
 h3 {
     font-size: 1.45rem;
-    padding-top: 0.55rem;
+    padding: 0.55rem 0;
 }
 
 h4 {
     font-size: 1.3rem;
-    padding-top: 0.5rem;
+    padding: 0.5rem 0;
 }
 
 p {
-    padding-top: 0.5rem;
+    padding: 0.5rem 0;
 }
 
 article p a {

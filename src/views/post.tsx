@@ -38,7 +38,7 @@ export default async function BlogPost({ slug }: { slug: string }) {
             <hr/>
           </header>
 
-          <section dangerouslySetInnerHTML={{ __html: parsed.ok }} />
+          <section className="py-4 md:text-lg" dangerouslySetInnerHTML={{ __html: parsed.ok }} />
         </div>
       );
   }
