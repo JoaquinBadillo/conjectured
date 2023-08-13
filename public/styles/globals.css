@@ -24,6 +24,7 @@
     m-4
     relative
     shadow-md
+    bg-gray-300 dark:bg-gray-900
     max-w-[95%]
     hover:shadow-gray-500/50
     dark:hover:shadow-gray-700/50
