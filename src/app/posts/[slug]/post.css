@@ -27,9 +27,12 @@ article p a:hover {
 }
 
 article img {
-    padding: 2rem;
-    max-width: 80%;
+    padding: 2rem 0;
     width: 800px;
     margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  max-width: 80%;
 }
 
